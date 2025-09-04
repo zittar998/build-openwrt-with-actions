@@ -115,15 +115,9 @@ jobs:
         working-directory: openWRT
         run: ./scripts/feeds update -a && ./scripts/feeds install -a
 
-      #- name: 生成makemenu (Generate makemenu)
-      #  if: ${{inputs.ssh == true}}
-      #  working-directory: openWRT
-      #  run: make menuconfig
-
-      - name: 使用ssh连接编译环境 (Connect to the build environment using ssh)
+      - name: 使用ssh连接编译环境，限时15分钟，可在连接后输入命令 `touch /tmp/keepalive` 保活 (Connect to the build environment using ssh)
         if: ${{inputs.ssh == true}}
-        uses: mxschmitt/action-tmate@v3
-        timeout-minutes: 15
+        uses: csexton/debugger-action@master
 
       - name: 编译前上传配置 (Upload config before build)
         uses: actions/upload-artifact@v4
