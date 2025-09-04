@@ -115,10 +115,10 @@ jobs:
         working-directory: openWRT
         run: ./scripts/feeds update -a && ./scripts/feeds install -a
 
-      - name: 生成makemenu (Generate makemenu)
-        if: ${{inputs.ssh == true}}
-        working-directory: openWRT
-        run: make menuconfig
+      #- name: 生成makemenu (Generate makemenu)
+      #  if: ${{inputs.ssh == true}}
+      #  working-directory: openWRT
+      #  run: make menuconfig
 
       - name: 使用ssh连接编译环境 (Connect to the build environment using ssh)
         if: ${{inputs.ssh == true}}
