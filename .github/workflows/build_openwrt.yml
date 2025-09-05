@@ -124,8 +124,8 @@ jobs:
         with:
           name: config-before-build
           path: |
-            openWRT/feeds.conf.default
             openWRT/.config
+            openWRT/feeds.conf.default
 
       - name: 多线程download (Download openWRT multithreading)
         working-directory: openWRT

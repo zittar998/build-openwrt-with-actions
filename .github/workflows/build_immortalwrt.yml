@@ -124,8 +124,8 @@ jobs:
         with:
           name: config-before-build
           path: |
-            openWRT/feeds.conf.default
             openWRT/.config
+            openWRT/feeds.conf.default
 
       - name: 多线程编译 openWRT (Build openWRT multithreading)
         if: ${{inputs.multithreading == true}}
