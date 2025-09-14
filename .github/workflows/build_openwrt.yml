@@ -119,13 +119,16 @@ jobs:
         if: ${{inputs.ssh == true}}
         uses: csexton/debugger-action@master
 
-      - name: 编译前上传配置 (Upload config before build)
+      - name: 编译前上传配置，需要在ssh里将.config复制一份并重命名为update.config (Upload config before build)
+        if: ${{inputs.multithreading == true}}
         uses: actions/upload-artifact@v4
         with:
           name: config-before-build
           path: |
             openWRT/.config
+            openWRT/update.config
             openWRT/feeds.conf.default
+          include-hidden-files: true
 
       - name: 多线程download (Download openWRT multithreading)
         working-directory: openWRT
