@@ -99,7 +99,7 @@ jobs:
           path: openWRT
 
       - name: 复制当前仓库的配置文件到 openWRT 仓库  (Copy current repo config to openWRT repo)
-        run: cp -f diy.sh openWRT/
+        run: cp -f diy.sh .config openWRT/
 
       - name: 如果选择了上传 files 大法，则复制 files 目录到 openWRT 仓库 (If you choose to upload the etc files, copy the etc directory to the openWRT repo)
         if: ${{inputs.isFiles == true}}
@@ -115,6 +115,10 @@ jobs:
         working-directory: openWRT
         run: ./scripts/feeds update -a && ./scripts/feeds install -a
 
+      - name: 如果没开ssh重新复制.config文件到openWRT 仓库(Copy current repo config to openWRT repo again)
+        if: ${{inputs.ssh == false}}
+        run: cp -f .config openWRT/
+        
       - name: 使用ssh连接编译环境，限时15分钟，可在连接后输入命令 `touch /tmp/keepalive` 保活 (Connect to the build environment using ssh)
         if: ${{inputs.ssh == true}}
         uses: csexton/debugger-action@master
